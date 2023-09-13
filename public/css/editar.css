@@ -1,0 +1,168 @@
+#edit {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgb(142, 182, 235);
+    border: 1px solid rgb(142, 182, 235);
+    border-radius: 5px;
+    padding: 15px;
+    z-index: 1000;
+    width: 60%;
+    height: 85%;
+    /* Estilos adicionales según tus preferencias */
+}
+
+.btn-submit{
+
+    display: none;
+}
+
+
+@media screen and (max-width: 768px) {
+    #edit {
+        display: none;
+        position: fixed;
+        transform: translate(-50%, -50%);
+        background-color: rgb(142, 182, 235);
+        border: 1px solid rgb(142, 182, 235);
+        border-radius: 5px;
+        padding: 15px;
+        z-index: 1000;
+        width: 80%;
+        height: 100%;
+    }
+    .grupo{
+
+        display: flex;
+        flex-direction: row;
+        gap: 5px;
+    }
+
+
+    .btnedit{
+        display: none;
+
+    }
+    #btnarchivo{
+
+        display: none;
+    }
+    .btn-submit{
+
+        display: block;
+    }
+    
+
+    .borderedit{
+        border: solid blue 1px;
+        border-radius: 2px;
+        border-color:rgb(14, 59, 209);
+        background-color:white;
+        width: 100%;
+        height: 100%;
+    }
+    .divInfoedit{
+    
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        padding: 10px;
+        width: 50%;
+        height: auto;
+       
+    }
+    
+    
+    .divContenedoredit{
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        padding: 10px;
+        width: 100%;
+        height: 100%;
+        border-top:1px solid rgb(14, 59, 209);
+    
+    }
+    
+    .foto{
+        border: solid black 1px;
+        border-radius: 5px;
+        padding: 5px;
+        width: 30%;
+        height: 50%;
+        margin: 0px;
+       
+    }
+    .imagen {
+        width: 100%;
+        height:100%; /* Ajustar la imagen al 100% del ancho del div */
+        
+    }
+    
+    h1{
+        padding: 5px;
+        font-size: 20px;
+        color :black;
+        font-weight: 100rem;
+    }
+    
+}
+
+
+.borderedit{
+    border: solid blue 1px;
+    border-radius: 5px;
+    border-color:rgb(14, 59, 209);
+    background-color:white;
+    width: 100%;
+    height: 100%;
+}
+.divInfoedit{
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 10px;
+    width: 70%;
+    height: auto;
+   
+}
+
+
+.divContenedoredit{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    padding: 10px;
+    width: 100%;
+    height: auto;
+    border-top:1px solid rgb(14, 59, 209);
+
+}
+
+.foto{
+    border: solid black 1px;
+    border-radius: 5px;
+    padding: 5px;
+    width: 30%;
+    height: 50%;
+    margin: 0px;
+   
+}
+.imagen {
+    width: 100%;
+    height:100%; /* Ajustar la imagen al 100% del ancho del div */
+    
+}
+
+h1{
+    padding: 5px;
+    font-size: 20px;
+    color :black;
+    font-weight: 100rem;
+}
+
+
+

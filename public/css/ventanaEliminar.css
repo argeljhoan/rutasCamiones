@@ -1,0 +1,67 @@
+#ventanaEliminar {
+    display: none;
+    position: fixed;
+    top: 45%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgb(142, 182, 235);
+    border: 1px solid rgb(142, 182, 235);
+    border-radius: 5px;
+    padding: 15px;
+    z-index: 1000;
+    width: 40%;
+    height: 40%;
+    /* Estilos adicionales según tus preferencias */
+}
+
+.borderemer{
+    border: solid blue 1px;
+    border-radius: 5px;
+    border-color:rgb(14, 59, 209);;
+    background-color:white;
+    width: 100%;
+    height: 100%;
+}
+.divInfoemer{
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 4px;
+    padding: 10px;
+    width: 100%;
+    height: 100%;
+}
+.infoemer{
+
+    display: flex;
+    justify-content: start;
+    border: solid black 1px;
+    border-radius: 5px;
+    padding: 20px;
+    width: 100%;
+    height: auto;
+   
+}
+
+
+.divContenedoremer{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    padding: 10px;
+    width: 100%;
+    height: 90%;
+}
+
+.nameemer{
+
+    color: rgb(14, 59, 209);
+    font-size: 30px;
+    padding: 5px;
+    width: 100%;
+    height: auto;
+}
+

@@ -1,0 +1,83 @@
+#asignar {
+    display: none;
+    position: fixed;
+    top: 60%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgb(142, 182, 235);
+    border: 1px solid rgb(142, 182, 235);
+    border-radius: 5px;
+    padding: 15px;
+    z-index: 1000;
+    width: 50%;
+    height: auto;
+    /* Estilos adicionales según tus preferencias */
+}
+
+#cambiar {
+    display: none;
+    position: fixed;
+    top: 60%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgb(142, 182, 235);
+    border: 1px solid rgb(142, 182, 235);
+    border-radius: 5px;
+    padding: 15px;
+    z-index: 1000;
+    width: 50%;
+    height: auto;
+    /* Estilos adicionales según tus preferencias */
+}
+
+.borderAsig{
+    border: solid blue 1px;
+    border-radius: 5px;
+    border-color:rgb(14, 59, 209);;
+    background-color:white;
+    width: 100%;
+    height: 100%;
+}
+.divInfoAsig{
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 5px;
+    padding: 20px;
+    width: 100%;
+    height: 100%;
+}
+.infoAsig{
+
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    border: solid black 1px;
+    border-radius: 5px;
+    padding: 5px;
+    width: 100%;
+    height: auto;
+   
+}
+.divasig{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    padding: 2px;
+    width: 40%;
+}
+
+.divContenedorAsig{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    padding: 10px;
+    width: 100%;
+    height: 100%;
+}
+
+
