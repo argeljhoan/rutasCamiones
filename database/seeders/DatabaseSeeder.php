@@ -22,9 +22,11 @@ class DatabaseSeeder extends Seeder
         // ]);
         $this->call(RolSeeder::class);
         $this->call(AccesoSeeder::class);
+        $this->call(AsignacionSeeder::class);
         $this->call(EstadoSeeder::class);
         $this->call(TipoSeeder::class);
         $this->call(UserSeeder::class);
+        $this->call(CoordenadaSeeder::class);
         
     }
 }

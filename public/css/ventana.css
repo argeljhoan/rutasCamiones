@@ -10,7 +10,7 @@
     padding: 15px;
     z-index: 1000;
     width: 50%;
-    height: 60%;
+    height: 40%;
     /* Estilos adicionales según tus preferencias */
 }
 
@@ -26,23 +26,24 @@
 
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
+    justify-content:flex-start;
     gap: 5px;
     padding: 20px;
     width: 100%;
-    height: 100%;
+    
 }
 .info{
 
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
-    align-items: center;
+    justify-content: flex-start;
+    align-items: start;
     border: solid black 1px;
     border-radius: 5px;
-    padding: 5px;
+    padding: 10px;
     width: 50%;
     height: auto;
+    gap:1rem;
    
 }
 .foto{

@@ -1,5 +1,5 @@
 <x-app-layout>
-    <link rel="stylesheet" href="{{ asset('css/ventana.css') }}?v4">
+    <link rel="stylesheet" href="{{ asset('css/ventana.css') }}?v5">
     <link rel="stylesheet" href="{{ asset('css/ventanaEliminar.css') }}">
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
@@ -104,28 +104,27 @@
         </div>
         <div id="info" class="hidden">
 
-            
+
 
 
 
         </div>
-
-      <div id="principal" class="hidden">
-        <form action="{{ route('Users.Destroy', $user) }}" method="POST">
-            @csrf
-            @method('delete')
-            <div id="ventanaEliminar" class="hidden">
-                <!-- Contenido que deseas mostrar en la ventana emergente -->
-                <p>Información de la tabla aquí</p>
+        @foreach ($users as $user)
+            <div id="principal" class="hidden">
+                <form action="{{ route('Users.Destroy', $user) }}" method="POST">
+                    @csrf
+                    @method('delete')
+                    <div id="ventanaEliminar" class="hidden">
+                        <!-- Contenido que deseas mostrar en la ventana emergente -->
+                        <p>Información de la tabla aquí</p>
+                    </div>
+                </form>
             </div>
-        </form>
-      </div>
-
-
+        @endforeach
     </div>
 
 
     </div>
-    <script src="{{ asset('js/ventana.js') }}?v5"></script>
+    <script src="{{ asset('js/ventana.js') }}?v6"></script>
     <script src="{{ asset('js/InformacionInhabilitar.js') }}?v1"></script>
 </x-app-layout>

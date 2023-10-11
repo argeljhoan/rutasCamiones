@@ -23,8 +23,7 @@ class GestionController extends Controller
     public function index()
     {
         $users = User::where('id_acceso',1)->with('roles')->get();
-        
-        
+       
         return view('Users.Gestion',compact('users'));
     }
 
@@ -79,7 +78,8 @@ class GestionController extends Controller
         'profile_photo_path'=> $nombreArchivo,
         'identificacion' => $request->Identificacion,
         'telefono' => $request->Telefono,
-        'id_acceso' => 1
+        'id_acceso' => 1,
+        'id_asignacion' => 2
        ])->assignRole($rolnombre->name);
 
 

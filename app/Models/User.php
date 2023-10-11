@@ -3,23 +3,24 @@
 namespace App\Models;
 
 use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Fortify\TwoFactorAuthenticatable;
 use Laravel\Jetstream\HasProfilePhoto;
 use Laravel\Sanctum\HasApiTokens;
-use Spatie\Permission\Traits\HasRoles;
-use Illuminate\Database\Eloquent\Casts\Attribute;
+use Spatie\Permission\Models\Role;
 
 class User extends Authenticatable
 {
+
     use HasApiTokens;
     use HasFactory;
     use HasProfilePhoto;
     use Notifiable;
     use TwoFactorAuthenticatable;
-    use HasRoles;
+
     /**
      * The attributes that are mass assignable.
      *
@@ -29,10 +30,6 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
-        'profile_photo_path',
-        'identificacion',
-        'telefono',
-        'id_acceso'
     ];
 
     /**
@@ -65,8 +62,7 @@ class User extends Authenticatable
         'profile_photo_url',
     ];
 
-
-    protected function name():Attribute{
+      protected function name():Attribute{
 
         return new Attribute(
     
@@ -74,16 +70,17 @@ class User extends Authenticatable
             set: fn($value) => strtolower($value)
             
         );
-    
+
     }
+
     public function acceso()
     {
         return $this->belongsTo(Acceso::class,'id_acceso');
     }
 
-    public function camiones()
+    public function roles()
     {
-        return $this->hasMany(Camiones::class, 'id_conductor');
+        return $this->belongsToMany(Role::class, 'model_has_roles', 'model_id', 'role_id');
     }
-    
+
 }

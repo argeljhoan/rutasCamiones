@@ -41,12 +41,26 @@ class Camiones extends Model
         return $this->belongsTo(User::class,'id_conductor');
     }
 
+     public function tickects()
+    {
+        return $this->hasMany(Ticket::class, 'id_conductor');
+    }
 
-    protected function name():Attribute{
+    public function mapas()
+    {
+        return $this->hasMany(Mapa::class, 'id_camion');
+    }
+
+     public function rutas()
+    {
+        return $this->hasMany(Ruta::class, 'id_camion');
+    }
+
+    protected function matricula():Attribute{
 
         return new Attribute(
     
-            get:fn($value) => ucwords($value),
+            get:fn($value) => strtoupper($value),
             set: fn($value) => strtolower($value)
             
         );

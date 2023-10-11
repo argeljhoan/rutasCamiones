@@ -17,5 +17,10 @@ class Model_has_role extends Model
         return $this->belongsTo(Role::class, 'role_id');
     }
 
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'model_id');
+    }
+
    
 }

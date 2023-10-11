@@ -28,31 +28,27 @@ tabla.addEventListener('click', function(event) {
         var ventanaOculta = document.getElementById('info');
         
         ventanaOculta.innerHTML = `
-        <div class='border'>
-        <div class='text-end'>
-          <button class='btn-close'  id="closeinfo" style="color:'red'"></button>
+        <div class="border">
+        <div class="text-end">
+            <button class="btn-close" id="closeinfo" style="color: red;"></button>
         </div>
-        
+    
         <div class="divContenedor">
-             <h1 class="name text-center">${filaInfo.nombre}</h1>
+            <h1 class="name text-center">${filaInfo.nombre}</h1>
             <div class="divInfo text-center">
-             <div class='info'>
-              <p><strong>Identificacion:</strong> <span>${filaInfo.identificacion}</span></p>
-              <p><strong>Telefono:</strong> <span>${filaInfo.telefono}</span></p>
-              <p><strong>Correo:</strong> <span>${filaInfo.correo}</span></p>
-              <p><strong>Rol:</strong> <span>${filaInfo.rol}</span></p>
-             </div>
-         
-
-           <div class="foto">
-           <img class='imagen ' src="${filaInfo.foto}" alt="Descripción de la imagen">
-         
-           </div>
-
-           </div>
-           </div>
+                <div class="info">
+                    <p><strong>Identificacion:</strong> <span>${filaInfo.identificacion}</span></p>
+                    <p><strong>Telefono:</strong> <span>${filaInfo.telefono}</span></p>
+                    <p><strong>Correo:</strong> <span>${filaInfo.correo}</span></p>
+                    <p><strong>Rol:</strong> <span>${filaInfo.rol}</span></p>
+                </div>
+    
+                <div class="foto">
+                    <img class="imagen" src="${filaInfo.foto}" alt="Descripción de la imagen">
+                </div>
+            </div>
         </div>
-        </div>
+    </div>
         `;
 
         ventanaOculta.style.display = 'block'; // Mostrar la ventana oculta

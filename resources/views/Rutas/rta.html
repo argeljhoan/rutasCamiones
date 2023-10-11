@@ -1,0 +1,32 @@
+
+    
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Obtener Latitud y Longitud</title>
+</head>
+<body>
+    <h1>Mi Ubicación Actual</h1>
+    <p>Latitud: <span id="latitud"></span></p>
+    <p>Longitud: <span id="longitud"></span></p>
+
+    <script>
+        function obtenerUbicacion() {
+            if ("geolocation" in navigator) {
+                navigator.geolocation.getCurrentPosition(function(position) {
+                    var latitud = position.coords.latitude;
+                    var longitud = position.coords.longitude;
+
+                    document.getElementById("latitud").textContent = latitud;
+                    document.getElementById("longitud").textContent = longitud;
+                });
+            } else {
+                alert("La geolocalización no está disponible en tu navegador.");
+            }
+        }
+
+        obtenerUbicacion();
+    </script>
+</body>
+</html>

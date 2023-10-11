@@ -20,6 +20,7 @@ tabla.addEventListener('click', function (event) {
 
         // Crear un objeto para almacenar la información de la fila
         var filaInfo = {
+            id:  celdas[0].textContent,
             matricula: celdas[1].textContent,
             tipo: celdas[2].textContent,
             marca: celdas[3].textContent,
@@ -35,7 +36,12 @@ tabla.addEventListener('click', function (event) {
         var ventanaOculta = document.getElementById('editar');
         var cerrar = document.getElementById('edit');
        
-        
+        var formularioAsignar = document.getElementById('formeditar');
+            var nuevaURL = formularioAsignar.getAttribute('data-action') ;
+            
+            var nuevaCadena = nuevaURL.slice(0, nuevaURL.lastIndexOf('/'));
+             console.log( nuevaCadena + '/' + idcamion);
+            formularioAsignar.action = nuevaCadena+ '/' + filaInfo.id;
        
         ventanaOculta.innerHTML = `
       

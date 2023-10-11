@@ -1,8 +1,12 @@
 <?php
 
+use App\Http\Controllers\Rutas\RutasController;
+use App\Http\Controllers\Ticket\TicketController;
 use App\Http\Controllers\Usuarios\GestionController;
 use App\Http\Controllers\Vehiculos\VehiculoGestionController;
+
 use Illuminate\Support\Facades\Route;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -29,7 +33,9 @@ Route::middleware([
     })->name('dashboard');
 });
 
-Route::get('/Usuarios/Gestion', [GestionController::class, 'index'])->name('Users.Gestion');
+
+
+Route::get('/Usuarios/Gestion',[GestionController::class,'index'])->name('Users.Gestion');
 Route::get('/Usuarios/Registrar', [GestionController::class, 'create'])->name('Users.Registro');
 Route::post('/Usuarios/Registrar', [GestionController::class,'store'])->name('Users.store');
 Route::get('/Usuarios/Editar/{user}', [GestionController::class,'edit'])->name('Users.Editar');
@@ -37,9 +43,15 @@ Route::put('/Usuarios/Editar/{user}', [GestionController::class,'update'])->name
 Route::delete('/Usuarios/Eliminar/{user}', [GestionController::class,'destroy'])->name('Users.Destroy');
 
 
-
-Route::get('/Vehiculos/Gestion', [VehiculoGestionController::class, 'index'])->name('Vehiculos.Gestion');
+Route::get('/Vehiculos/Gestion',[VehiculoGestionController::class,'index'])->name('Vehiculos.Gestion');
 Route::get('/Vehiculos/Registrar', [VehiculoGestionController::class, 'create'])->name('Vehiculos.Registro');
 Route::post('/Vehiculos/Registrar', [VehiculoGestionController::class,'store'])->name('Vehiculos.store');
 Route::put('/Vehiculos/Editar/{camion}', [VehiculoGestionController::class,'update'])->name('Vehiculos.Actualizar');
 Route::put('/Vehiculos/Asignar/{camion}', [VehiculoGestionController::class,'asignar'])->name('Vehiculos.Asignar');
+
+
+Route::get('/Tickets/Gestion', [TicketController::class, 'index'])->name('Tickets.Gestion');
+
+Route::get('/Mapas/Gestion', [RutasController::class, 'gestionMapa'])->name('Rutas.Mapa');
+Route::get('/Mapas/Conductor/{camion}', [RutasController::class, 'buscarCoordenadas'])->name('Rutas.Coordenadas');
+Route::get('/Rutas/Gestion', [RutasController::class, 'index'])->name('Rutas.Gestion');

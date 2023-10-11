@@ -18,7 +18,7 @@
                 </div>
 
                 <div class="hidden space-x-6 sm:-my-px sm:ml-10 sm:flex">
-                    <x-nav-link href="{{ route('dashboard') }}">
+                    <x-nav-link href="{{ route('Rutas.Mapa') }}">
                         {{ __('Mapa') }}
                     </x-nav-link>
                 </div>
@@ -36,13 +36,13 @@
                 </div>
 
                 <div class="hidden space-x-6 sm:-my-px sm:ml-10 sm:flex">
-                    <x-nav-link href="{{ route('dashboard') }}">
+                    <x-nav-link href="{{ route('Tickets.Gestion') }}">
                         {{ __('Tickets') }}
                     </x-nav-link>
                 </div>
 
                 <div class="hidden space-x-6 sm:-my-px sm:ml-10 sm:flex">
-                    <x-nav-link href="{{ route('dashboard') }}" >
+                    <x-nav-link href="{{ route('Rutas.Gestion') }}" >
                         {{ __('Rutas') }}
                     </x-nav-link>
                 </div>
@@ -62,7 +62,7 @@
                         <x-dropdown align="right" width="60">
                             <x-slot name="trigger">
                                 <span class="inline-flex rounded-md">
-                                    <button type="button" class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none focus:bg-gray-50 active:bg-gray-50 transition ease-in-out duration-150">
+                                    <button  type="button" class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none focus:bg-gray-50 active:bg-gray-50 transition ease-in-out duration-150">
                                         {{ Auth::user()->currentTeam->name }}
 
                                         <svg class="ml-2 -mr-0.5 h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
@@ -182,7 +182,7 @@
 
         
         <div class="pt-2 pb-3 space-y-1"> 
-            <x-responsive-nav-link href="{{ route('dashboard') }}">
+            <x-responsive-nav-link href="{{ route('Rutas.Mapa') }}">
                 {{ __('Mapa') }}
             </x-responsive-nav-linkk>
         </div>
@@ -200,13 +200,13 @@
         </div>
 
         <div class="pt-2 pb-3 space-y-1">
-            <x-responsive-nav-link href="{{ route('dashboard') }}">
+            <x-responsive-nav-link href="{{ route('Tickets.Gestion') }}">
                 {{ __('Tickets') }}
             </x-responsive-nav-link>
         </div>
 
         <div class="pt-2 pb-3 space-y-1">
-            <x-responsive-nav-link href="{{ route('dashboard') }}" >
+            <x-responsive-nav-link href="{{ route('Rutas.Gestion') }}" >
                 {{ __('Rutas') }}
             </x-responsive-nav-link>
         </div>

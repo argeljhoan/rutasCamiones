@@ -21,7 +21,8 @@ class UserSeeder extends Seeder
             'password' => bcrypt('argel123'),
             'identificacion' => 1093797862,
             'telefono' => 3218097734,
-            'id_acceso' => 1
+            'id_acceso' => 1,
+            'id_asignacion' => 2
         ])->assignRole('SuperAdmin');
 
         User::create([
@@ -30,7 +31,8 @@ class UserSeeder extends Seeder
             'password' => bcrypt('julian123'),
             'identificacion' => 1093797456,
             'telefono' => 3214092354,
-            'id_acceso' => 1
+            'id_acceso' => 1,
+            'id_asignacion' => 2
         ])->assignRole('Admin');
 
 
@@ -40,7 +42,8 @@ class UserSeeder extends Seeder
             'password' => bcrypt('luis123'),
             'identificacion' => 1094794556,
             'telefono' => 3268092354,
-            'id_acceso' => 1
+            'id_acceso' => 1,
+            'id_asignacion' => 2
         ])->assignRole('Conductor');
 
     }

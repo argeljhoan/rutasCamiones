@@ -14,34 +14,48 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 
+use function PHPUnit\Framework\isNull;
+
 class VehiculoGestionController extends Controller
 {
+    private $conductores = [];
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
+
+    
     public function index()
     {
 
         $camiones = Camiones::with('estado', 'tipo_camion','conductor')->get();
-        $tipos = Tipo::all();
-        $nombreDelRol = 'Conductor';
-        $results = Model_has_role::whereHas('role', function ($query) use ($nombreDelRol) {
-            $query->where('name', $nombreDelRol);
-        })->get();
 
-        $conductores = [];
+        $tipos = Tipo::all();                                               
+        $nombreDelRol = 'Conductor';
+
+
+
+        $results = Model_has_role::whereHas('role', function ($query) use ($nombreDelRol) {
+
+            $query->where('name', $nombreDelRol);
+
+        })->get();                    
 
         foreach ($results as $result) {
-            $user = User::where('id', $result->model_id)->get(); // Cambiar "first" a "get" si esperas múltiples resultados por cada iteración
+            $user = User::where('id', $result->model_id)
+            ->where('id_asignacion', 2)->get(); // Cambiar "first" a "get" si esperas múltiples resultados por cada iteración
             if ($user) {
-                $conductores[] = $user;
+                $this->conductores[] = $user;
             }
+           
         }
+
+        $conductores = $this->conductores;
 
         $estados = Estado::all();
 
+        
         return view('Vehiculos.Gestion', compact('camiones', 'tipos','conductores','estados'));
     }
 
@@ -57,6 +71,7 @@ class VehiculoGestionController extends Controller
         $tipos = Tipo::all();
         // $estados = Tipo::all();
         return view('Vehiculos.Registro', compact('tipos'));
+
     }
 
     /**
@@ -149,7 +164,7 @@ class VehiculoGestionController extends Controller
             'id_tipo' => $idTipo
         ]);
 
-        Session::flash('success', 'El Usuario se Actualizo exitosamente');
+        Session::flash('success', 'El Vehiculo se Actualizo exitosamente');
         return redirect()->back();
     }
 
@@ -161,14 +176,31 @@ class VehiculoGestionController extends Controller
         'id_camion'=>$camion->id
      ]);
 
+   
+    
+    //return $camion;
+    $users = User :: where('id',$request->user)->first();
+    if($camion->id_conductor != null){
+        $conductoranterior = User :: where('id',$camion->id_conductor)->first();
+        $conductoranterior -> update([
+            'id_asignacion' => 2
+             ]);
+    
+    }
 
-     $camion->update([
+    $users -> update([
+    'id_asignacion' => 1
+    ]);
+
+
+    $camion->update([
         'id_conductor'=>$request->user
-     ]);
+    ]);
+
+
 
      Session::flash('success', 'Se Asigno un Conductor');
-     return redirect()->back();
-
+     return redirect()->route('Vehiculos.Gestion')->with('success', 'Se Asignó un Conductor');
     }
 
 

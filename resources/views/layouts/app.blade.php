@@ -13,10 +13,9 @@
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0/dist/css/bootstrap.min.css" rel="stylesheet">
         
         
-    </head>
-        
+
         <!-- Scripts -->
-        @vite(['resources/css/app.css', 'resources/js/app.js'])
+         @vite(['resources/css/app.css', 'resources/js/app.js']) 
        
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0/dist/js/bootstrap.bundle.min.js"></script>
         <!-- Styles -->
