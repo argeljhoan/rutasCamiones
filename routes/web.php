@@ -48,10 +48,16 @@ Route::get('/Vehiculos/Registrar', [VehiculoGestionController::class, 'create'])
 Route::post('/Vehiculos/Registrar', [VehiculoGestionController::class,'store'])->name('Vehiculos.store');
 Route::put('/Vehiculos/Editar/{camion}', [VehiculoGestionController::class,'update'])->name('Vehiculos.Actualizar');
 Route::put('/Vehiculos/Asignar/{camion}', [VehiculoGestionController::class,'asignar'])->name('Vehiculos.Asignar');
-
+Route::put('/Vehiculos/Estado/{camion}', [VehiculoGestionController::class,'estado'])->name('Vehiculos.Estado');
 
 Route::get('/Tickets/Gestion', [TicketController::class, 'index'])->name('Tickets.Gestion');
+Route::get('/Tickets/Registro', [TicketController::class, 'create'])->name('Tickets.Registro');
+Route::post('/Tickets/Registrar', [TicketController::class, 'store'])->name('Tickets.store');
+
 
 Route::get('/Mapas/Gestion', [RutasController::class, 'gestionMapa'])->name('Rutas.Mapa');
-Route::get('/Mapas/Conductor/{camion}', [RutasController::class, 'buscarCoordenadas'])->name('Rutas.Coordenadas');
+Route::get('/Mapas/Conductor/', [RutasController::class, 'buscarCoordenadas'])->name('Rutas.Coordenadas');
+Route::get('/Mapas/Camion/{camion}', [RutasController::class, 'buscarCamion'])->name('Rutas.Camion');
+Route::get('/Rutas/Camion/{camion}', [RutasController::class, 'rutasCoordenadas'])->name('Rutas.Coordenadas');
+
 Route::get('/Rutas/Gestion', [RutasController::class, 'index'])->name('Rutas.Gestion');

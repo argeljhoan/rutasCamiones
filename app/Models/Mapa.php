@@ -15,7 +15,8 @@ class Mapa extends Model
     protected $fillable = [
         'latitud',
         'longitud',
-        'id_camion'
+        'estadoLaboral',
+        'id_camion',
         
     ];
 

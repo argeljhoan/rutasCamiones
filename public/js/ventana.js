@@ -21,12 +21,12 @@ tabla.addEventListener('click', function(event) {
             telefono: celdas[3].textContent,
             correo: celdas[4].textContent,
             rol: celdas[5].textContent,
-            foto: celdas[7].getAttribute('data-foto')
+            foto: celdas[6].getAttribute('data-foto')
         };
 
         // Mostrar la información en una ventana oculta (puedes adaptar esto a tu diseño)
         var ventanaOculta = document.getElementById('info');
-        
+        console.log(filaInfo.foto)
         ventanaOculta.innerHTML = `
         <div class="border">
         <div class="text-end">

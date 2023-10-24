@@ -1,32 +1,57 @@
-
-    
-
 <!DOCTYPE html>
+
 <html>
+
 <head>
     <title>Obtener Latitud y Longitud</title>
-</head>
-<body>
-    <h1>Mi Ubicación Actual</h1>
-    <p>Latitud: <span id="latitud"></span></p>
-    <p>Longitud: <span id="longitud"></span></p>
-
-    <script>
-        function obtenerUbicacion() {
-            if ("geolocation" in navigator) {
-                navigator.geolocation.getCurrentPosition(function(position) {
-                    var latitud = position.coords.latitude;
-                    var longitud = position.coords.longitude;
-
-                    document.getElementById("latitud").textContent = latitud;
-                    document.getElementById("longitud").textContent = longitud;
-                });
-            } else {
-                alert("La geolocalización no está disponible en tu navegador.");
-            }
+     
+    <style>
+        #map {
+            height: 100%;
         }
 
-        obtenerUbicacion();
-    </script>
+        /* 
+ * Optional: Makes the sample page fill the window. 
+ */
+        html,
+        body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+
+        .custom-map-control-button {
+            background-color: #fff;
+            border: 0;
+            border-radius: 2px;
+            box-shadow: 0 1px 4px -1px rgba(0, 0, 0, 0.3);
+            margin: 10px;
+            padding: 0 0.5em;
+            font: 400 18px Roboto, Arial, sans-serif;
+            overflow: hidden;
+            height: 40px;
+            cursor: pointer;
+        }
+
+        .custom-map-control-button:hover {
+            background: rgb(235, 235, 235);
+        }
+    </style>
+   
+    <script type="module" src="js/prueba.js"></script>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+</head>
+
+<body>
+    <h1>Mi Ubicacion Actual</h1>
+    <p>Latitud: <span id="latitud"></span></p>
+    <p>Longitud: <span id="longitud"></span></p>
+    <div id='map'></div>
+    <div id='direccion'></div>
+    
+    <script async
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAtTDv6zE-wO9l81rfsEqnWrtmIzykelug&callback=initMap&v=weekly">
+        </script>
 </body>
+
 </html>

@@ -20,10 +20,8 @@ class TicketController extends Controller
     public function index()
     {
        
-         $tickets = Ticket::with('camion.conductor')->get();
-
-
-
+        $tickets = Ticket::with('camion.conductor')->get();
+      //  return $tickets;
         return view('Tickets.Gestion',compact('tickets'));
     }
 
@@ -37,7 +35,7 @@ class TicketController extends Controller
         //
 
         $conductores = User::where('id_asignacion',1)->get();
-        
+    
         return view('Tickets.Registro',compact('conductores'));
     }
 
@@ -74,7 +72,7 @@ class TicketController extends Controller
 
 
         Session::flash('success', 'El Ticket se Registro exitosamente');
-        return redirect()->back();
+        return $this->index();
     }
 
     /**

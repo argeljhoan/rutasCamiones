@@ -6,7 +6,10 @@ use App\Http\Controllers\Rutas\RutasController;
 use Livewire\Component;
 use App\Events\CoordenadasActualizadas;
 use App\Models\Camiones;
+use App\Models\Estado;
 use App\Models\Mapa;
+use App\Models\Tipo;
+use App\Models\User;
 use SebastianBergmann\CodeCoverage\Report\Html\Renderer;
 
 class MapsContenedor extends Component
@@ -19,41 +22,46 @@ class MapsContenedor extends Component
     public $open = false;
     public $matricula;
     public $nombreconductor;
+    public $tipo;
+    public $marca;
+    public $color;
+    public $idcamion;
+    public $modelo;
+    public $codigo;
+    public $estado;
+    
+   
 
 
-
-
-    protected $listeners = ['showModal'];
+    protected $listeners = ['showModal','MapaCamiones'];
 
     public function mount($coordenadas, $camiones)
     {
         $this->coordenadas = $coordenadas;
         $this->camiones = $camiones;
+    
     }
 
     public function render()
     {
-        $camionJSON = json_encode($this->camiones);
-        $camionArray = json_decode($camionJSON, true);
-        $camiones = Camiones::where('id_conductor', '!=', null)->with('conductor')->get();
-
-
-        foreach ($this->coordenadas as $coordenada) {
-
-            $id = $coordenada->id_camion;
-            $lat = $coordenada->latitud;
-            $log = $coordenada->longitud;
-        }
-        $coordenadas = Mapa::where('id_camion', $id)->get();
-
-        $this->emit('CoordenadasActualizadas', $lat, $log);
+        
+      
         return view('livewire.maps-contenedor');
     }
 
     public function showModal(Camiones $camion)
     {
-        $camiones = Camiones::where('id_conductor', '!=', null)->with('conductor')->get();
+
+        $estado =  Estado::where('name', 'funcionando')->first();
+
+        $camiones = Camiones::where('id_conductor', '!=', null)
+        ->where('id_estado', $estado->id)
+        ->with('conductor','color','mapas')->get();
+
+      //  $camiones = Camiones::where('id_conductor', '!=', null)->with('conductor')->get();
         $coordenadas = Mapa::where('id_camion', $camion->id)->get();
+        $tipo = Tipo::where('id',$camion->id_tipo)->first();
+        $conductor = User::where('id',$camion->id_conductor)->first();
 
 
         foreach ($coordenadas as $coordenada) {
@@ -62,13 +70,52 @@ class MapsContenedor extends Component
             $lat = $coordenada->latitud;
             $log = $coordenada->longitud;
         }
+      //dd($camion);
+   
+         
+         if( $lat == null && $log == null){
+            
+            $this->emit('mapaRefresh',$camiones);
 
-        $this->open = true;
-        $this->matricula = $camion->matricula;
-        $this->latitudModal = $lat;
-        $this->longitudModal = $log;
-        $this->coordenadas = $coordenadas;
+         }else{
+
+            $this->open = true;
+            $this->nombreconductor = $conductor->name;
+            $this->idcamion = $camion->id;
+            $this->modelo = $camion->modelo;
+            $this->matricula = $camion->matricula;
+            $this->tipo = $tipo->name;
+            $this->marca = $camion->marca;
+            $this->color = $camion->color->name;
+            $this->codigo = $camion->color->codigo;
+            $this->latitudModal = $lat;
+            $this->longitudModal = $log;
+            $this->coordenadas = $coordenadas;
+            $this->camiones = $camiones;
+           
+            $this->emit('abrirModal', $camion, $lat,$log,$this->codigo);
+         }
+
+
+       
+    }
+
+
+
+    public function MapaCamiones(){
+
+        $estado =  Estado::where('name', 'funcionando')->first();
+        $camiones = Camiones::where('id_conductor', '!=', null)
+        ->where('id_estado', $estado->id)
+        ->with('conductor','color','mapas')->get();
         $this->camiones = $camiones;
-        $this->emit('abrirModal', $camion, $lat,$log);
+
+        $this->emit('mapaRefresh',$camiones);
+
+    }
+
+    public function RenderizarGestion(){
+
+        
     }
 }

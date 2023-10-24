@@ -6,8 +6,10 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreVehiculo;
 use App\Http\Requests\UpdatedVehiculo;
 use App\Models\Camiones;
+use App\Models\Color;
 use App\Models\Conductores_Camiones;
 use App\Models\Estado;
+use App\Models\Mapa;
 use App\Models\Model_has_role;
 use App\Models\Tipo;
 use App\Models\User;
@@ -29,7 +31,8 @@ class VehiculoGestionController extends Controller
     public function index()
     {
 
-        $camiones = Camiones::with('estado', 'tipo_camion','conductor')->get();
+        $camiones = Camiones::with('estado', 'tipo_camion','conductor','color')->paginate(15);
+      // return $camiones;
 
         $tipos = Tipo::all();                                               
         $nombreDelRol = 'Conductor';
@@ -54,9 +57,10 @@ class VehiculoGestionController extends Controller
         $conductores = $this->conductores;
 
         $estados = Estado::all();
+        $colores = Color::all();
+       
 
-        
-        return view('Vehiculos.Gestion', compact('camiones', 'tipos','conductores','estados'));
+        return view('Vehiculos.Gestion', compact('camiones', 'tipos','conductores','estados','colores'));
     }
 
     /**
@@ -67,10 +71,10 @@ class VehiculoGestionController extends Controller
     public function create()
     {
 
-
+        $colores = Color::all();
         $tipos = Tipo::all();
         // $estados = Tipo::all();
-        return view('Vehiculos.Registro', compact('tipos'));
+        return view('Vehiculos.Registro', compact('tipos','colores'));
 
     }
 
@@ -93,16 +97,23 @@ class VehiculoGestionController extends Controller
             'profile_photo_path' => $nombreArchivo,
             'marca' => $request->Marca,
             'modelo' => $request->modelo,
-            'color' => $request->color,
+            'id_color' => $request->color,
             'matricula' => $request->matricula,
             'id_estado' => 1,
             'id_tipo' => $request->tipo
 
         ]);
 
+        $camion->mapas()->create([
+            'latitud'=>null,
+            'longitud'=> null,
+            'estadoLaboral'=>'inactivo',
+            // Aquí debes proporcionar los datos para las coordenadas, si es necesario.
+        ]);
+
 
         Session::flash('success', 'El Vehiculo se Registro exitosamente');
-        return redirect()->back();
+        return $this->index();
     }
 
     /**
@@ -134,8 +145,17 @@ class VehiculoGestionController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdatedVehiculo $request, Camiones $camion)
+    public function update(UpdatedVehiculo $request,  Camiones $camion)
     {
+
+   
+        if (is_null($request->color)) {
+
+            $color = $camion->id_color;
+        } else {
+            $color = $request->color;
+        }
+
 
         if (is_null($request->tipo)) {
 
@@ -158,7 +178,7 @@ class VehiculoGestionController extends Controller
             'profile_photo_path' => $nombreArchivo,
             'marca' => $request->Marca,
             'modelo' => $request->modelo,
-            'color' => $request->color,
+            'id_color' => $color,
             'matricula' => $request->matricula,
             'id_estado' => $camion->id_estado,
             'id_tipo' => $idTipo
@@ -167,6 +187,8 @@ class VehiculoGestionController extends Controller
         Session::flash('success', 'El Vehiculo se Actualizo exitosamente');
         return redirect()->back();
     }
+
+
 
     public function asignar(Request $request, Camiones $camion){
 
@@ -200,11 +222,23 @@ class VehiculoGestionController extends Controller
 
 
      Session::flash('success', 'Se Asigno un Conductor');
-     return redirect()->route('Vehiculos.Gestion')->with('success', 'Se Asignó un Conductor');
+     return redirect()->route('Vehiculos.Gestion')->with('success', 'Se Asigno un Conductor');
     }
 
 
 
+
+    public function estado(Request $request, Camiones $camion){
+
+
+  $camion->update([
+        'id_estado'=>$request->estado
+    ]);
+
+    Session::flash('success', 'Se Cambio el Estado Exictosamente');
+     return redirect()->route('Vehiculos.Gestion')->with('success', 'Se Cambio el Estado Exictosamente');
+
+    }
 
     /**
      * Remove the specified resource from storage.

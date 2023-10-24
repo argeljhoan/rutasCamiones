@@ -1,5 +1,6 @@
 var miEstados = document.getElementById('miEstados').getAttribute('data-estado');
 var estados = JSON.parse(miEstados);
+console.log(window.idcamion);
 
    function Cambiar() {
 
@@ -18,10 +19,24 @@ var estados = JSON.parse(miEstados);
             var celdas = this.getElementsByTagName('td');
 
             var filaInfoEstado = {
+                id:celdas[0].textContent,
                 matricula: celdas[1].textContent,
                 
             };
 
+
+            
+            window.idcamion = filaInfoEstado.id
+
+            var formularioEstado = document.getElementById('formEstado');
+            var nuevaURL = formularioEstado.getAttribute('data-action') ;
+            
+            var nuevaCadena = nuevaURL.slice(0, nuevaURL.lastIndexOf('/'));
+             console.log( nuevaCadena + '/' + idcamion);
+            formularioEstado.action = nuevaCadena+ '/' + idcamion;
+
+
+            console.log(formularioEstado);
             // Mostrar la información en la ventana oculta
             ventanaOcultaestado.innerHTML = `
             <div class='borderAsig'>

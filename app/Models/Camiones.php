@@ -17,7 +17,7 @@ class Camiones extends Model
         'profile_photo_path',
         'marca',
         'modelo',
-        'color',
+        'id_color',
         'matricula',
         'id_estado',
         'id_tipo',
@@ -39,6 +39,12 @@ class Camiones extends Model
     public function conductor()
     {
         return $this->belongsTo(User::class,'id_conductor');
+    }
+
+
+     public function color()
+    {
+        return $this->belongsTo(Color::class,'id_color');
     }
 
      public function tickects()

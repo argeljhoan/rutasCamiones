@@ -27,6 +27,9 @@ class DatabaseSeeder extends Seeder
         $this->call(TipoSeeder::class);
         $this->call(UserSeeder::class);
         $this->call(CoordenadaSeeder::class);
+        $this->call(ColorSeeder::class);
+        $this->call(CamionSeeder::class);
+        
         
     }
 }

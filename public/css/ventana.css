@@ -10,7 +10,8 @@
     padding: 15px;
     z-index: 1000;
     width: 50%;
-    height: 40%;
+    max-height: 50vh; /* Limita la altura al 80% del alto de la ventana */
+    overflow-y: auto; /* Agrega desplazamiento vertical si es necesario */
     /* Estilos adicionales según tus preferencias */
 }
 

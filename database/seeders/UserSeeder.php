@@ -8,6 +8,7 @@ use Illuminate\Database\Seeder;
 
 class UserSeeder extends Seeder
 {
+    
     /**
      * Run the database seeds.
      *
@@ -45,6 +46,9 @@ class UserSeeder extends Seeder
             'id_acceso' => 1,
             'id_asignacion' => 2
         ])->assignRole('Conductor');
+
+
+      //  User::factory(40)->create();
 
     }
 }

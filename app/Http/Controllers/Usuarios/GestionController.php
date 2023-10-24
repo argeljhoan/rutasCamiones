@@ -22,8 +22,9 @@ class GestionController extends Controller
      */
     public function index()
     {
-        $users = User::where('id_acceso',1)->with('roles')->get();
+        $users = User::where('id_acceso',1)->with('roles')->paginate(15);
        
+        
         return view('Users.Gestion',compact('users'));
     }
 
@@ -84,7 +85,7 @@ class GestionController extends Controller
 
 
        Session::flash('success', 'El Usuario se Registro exitosamente');
-       return redirect()->back();
+       return $this->index();
 
     }
 

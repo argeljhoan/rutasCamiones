@@ -1,0 +1,40 @@
+Bogotá, D.C.:
+
+Latitud: 4.6097100
+Longitud: -74.0817500
+Medellín:
+
+Latitud: 6.2442030
+Longitud: -75.5812110
+Cali:
+
+Latitud: 3.4215820
+Longitud: -76.5205160
+Barranquilla:
+
+Latitud: 10.9638890
+Longitud: -74.7966830
+Cartagena:
+
+Latitud: 10.3910480
+Longitud: -75.4797380
+Bucaramanga:
+
+Latitud: 7.1253880
+Longitud: -73.1198040
+Santa Marta:
+
+Latitud: 11.2407910
+Longitud: -74.1990410
+Cúcuta:
+
+Latitud: 7.8890970
+Longitud: -72.4967730
+Manizales:
+
+Latitud: 5.0688910
+Longitud: -75.5173790
+Pereira:
+
+Latitud: 4.8124360
+Longitud: -75.6906010

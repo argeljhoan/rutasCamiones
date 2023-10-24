@@ -15,12 +15,13 @@ return new class extends Migration
     {
         Schema::create('mapa', function (Blueprint $table) {
             $table->id();
-              $table->string('latitud');
-            $table->string('longitud');
+            $table->string('latitud')->nullable();
+            $table->string('longitud')->nullable();
+            $table->string('estadoLaboral')->nullable();
             $table->unsignedBigInteger('id_camion')->nullable();
             $table->foreign('id_camion')
-            ->references('id')
-            ->on('camiones');
+                ->references('id')
+                ->on('camiones');
             $table->timestamps();
         });
     }

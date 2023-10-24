@@ -34,7 +34,7 @@ class UpdatedVehiculo extends FormRequest
              Rule::unique('camiones')->ignore($camion)],
             'Marca' => ['required','string','max:255'],
             'modelo' => ['required','string','max:255'],
-            'color'=> ['required','string','max:255'],
+            //'color'=> ['required','string','max:255'],
         ];
     }
 }

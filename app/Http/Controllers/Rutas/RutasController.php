@@ -1,10 +1,13 @@
 <?php
 
 namespace App\Http\Controllers\Rutas;
+
 use Geocoder;
 use App\Http\Controllers\Controller;
 use App\Models\Camiones;
+use App\Models\Estado;
 use App\Models\Mapa;
+use App\Models\Ruta;
 use Illuminate\Http\Request;
 
 class RutasController extends Controller
@@ -20,32 +23,57 @@ class RutasController extends Controller
         return view('Rutas.Gestion');
     }
 
-    public function gestionMapa(){
+    public function gestionMapa()
+    {
 
-        $camiones = Camiones::where('id_conductor', '!=', null)->with('conductor')->get();
+        $estado = Estado::where('name', 'funcionando')->first();
+
+        $camiones = Camiones::where('id_conductor', '!=', null)
+            ->where('id_estado', $estado->id)
+            ->with('conductor','color','mapas')->get();
+ 
         $coordenadas = Mapa::where('id_camion', '=', null)->get();
-     
-        return view('Rutas.Mapa',compact('camiones','coordenadas'));
-    
+
+       
+        return view('Rutas.Mapa', compact('camiones', 'coordenadas'));
     }
 
 
-    public function buscarCoordenadas(Camiones $camion){
-  
-        $camiones = Camiones::where('id_conductor', '!=', null)->with('conductor')->get();
-        $coordenadas = Mapa::where('id_camion', $camion->id)->get();
-        return view('Rutas.Mapa',compact('camiones','coordenadas'));
-        
+    public function buscarCoordenadas()
+    {
 
+        $estado =  Estado::where('name', 'funcionando')->first();
+        $camiones = Camiones::where('id_conductor', '!=', null)
+        ->where('id_estado', $estado->id)
+        ->with('conductor','color','mapas')->get();
+        return $camiones ;
+
+       // return view('Rutas.Mapa', compact('camiones', 'coordenadas'));
     }
 
-     
+    public function buscarCamion(Camiones $camion){
+
+
+
+        $camiones = Camiones::where('id',$camion->id)
+        ->with('conductor','color','mapas')->first();
+   
+        return  $camiones;
+    }
+
+    public function rutasCoordenadas(Camiones $camion){
+
+
+        $coordenadas = Ruta::where('id_camion', $camion->id)->with(['camion' => function ($query) {
+            $query->with('color');
+        }])->get();
+        return $coordenadas;
+    }
+
+
 
     public function showMap()
     {
-        
-
-
     }
     /**
      * Show the form for creating a new resource.
