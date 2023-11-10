@@ -163,7 +163,7 @@
                     console.log('ajaxRutas');
                     var rutaCoordenadas = "{{ URL::route('Rutas.Coordenadas', ':camion') }}";
                     rutaCoordenadas = rutaCoordenadas.replace(':camion', camion.id);
-                    // var rutaCoordenadas = "{{ URL::route('Rutas.Camion', $camion) }}";
+                   
                     $.ajax({
                         type: 'GET',
                         url: rutaCoordenadas,

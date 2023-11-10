@@ -19,6 +19,7 @@ class MapaVista extends Component
   public $open=false;
   public $matricula; 
   public $codigo;
+  public $camion;
 
 
   //protected $listeners = ['abrirModal'];

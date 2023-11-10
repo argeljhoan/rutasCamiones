@@ -58,6 +58,6 @@ Route::post('/Tickets/Registrar', [TicketController::class, 'store'])->name('Tic
 Route::get('/Mapas/Gestion', [RutasController::class, 'gestionMapa'])->name('Rutas.Mapa');
 Route::get('/Mapas/Conductor/', [RutasController::class, 'buscarCoordenadas'])->name('Rutas.Coordenadas');
 Route::get('/Mapas/Camion/{camion}', [RutasController::class, 'buscarCamion'])->name('Rutas.Camion');
-Route::get('/Rutas/Camion/{camion}', [RutasController::class, 'rutasCoordenadas'])->name('Rutas.Coordenadas');
+//Route::get('/Rutas/Camion/{camion}', [RutasController::class, 'rutasCoordenadas'])->name('Rutas.Coordenadas');
 
 Route::get('/Rutas/Gestion', [RutasController::class, 'index'])->name('Rutas.Gestion');

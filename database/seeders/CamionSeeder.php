@@ -15,7 +15,7 @@ class CamionSeeder extends Seeder
     public function run()
     {
       
-        Camiones::factory(50)->create();
+      //  Camiones::factory(50)->create();
 
 
     }

@@ -25,12 +25,12 @@
                 <div class="mb-4">
                     <x-input class="w-full" placeholder="Buscar por Radicado, Matricula, Nombre del Conductor" type="text" wire:model="searchTicket"></x-input>
                 </div>
-                {{$searchTicket}}
+               
             
                 <div class="w-1/3">
                     <input id="fecha" type="date" class="w-full" name="fecha" wire:model="fecha"  >
                 </div>
-                {{$fecha}}
+               
             </div>
             <!-- Aquí va tu código existente cuando $camion está definido -->
             <!-- ... -->

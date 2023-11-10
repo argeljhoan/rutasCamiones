@@ -34,8 +34,9 @@ class RutasController extends Controller
  
         $coordenadas = Mapa::where('id_camion', '=', null)->get();
 
-       
+      // return $camiones;
         return view('Rutas.Mapa', compact('camiones', 'coordenadas'));
+
     }
 
 
