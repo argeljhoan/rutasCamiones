@@ -198,6 +198,14 @@
             // MAPA INDIVIDUAL
 
             window.onload = function() {
+
+
+            Livewire.on('alerta', () => {
+               
+                Swal.fire("El Conductor No tiene Coordenadas");
+            });
+
+
                 Livewire.emit('MapaCamiones');
 
                 Livewire.on('abrirModal', (camion, lat, log, codigo) => {

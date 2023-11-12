@@ -16,9 +16,18 @@
         </x-slot>
     </x-dialog-modal>
 
+
+
     <div class="px-4 py-4">
-        <x-input class="w-full" placeholder="Buscar por Matricula, Marca o Nombre del Conductor" type="text"
-            wire:model='searchRutas'> </x-input>
+
+        <div class="mb-4">
+            <x-input class="w-full" placeholder="Buscar por Matricula, Marca o Nombre del Conductor" type="text"
+                wire:model='searchRutas'> </x-input>
+        </div>
+
+        <div class="w-1/3">
+            <input id="fecha" type="date" class="w-full" name="fecha" wire:model="fecha">
+        </div>
     </div>
 
 
@@ -89,7 +98,7 @@
 
         </div>
     @endif
-
+ 
     <script>
         (g => {
             var h, a, k, p = "The Google Maps JavaScript API",
@@ -131,7 +140,28 @@
 
         }
 
+
+        //ALERT
+
+
+
+
+
+
+        //MOSTRAR RUTAS
+
+
         window.onload = function() {
+
+
+
+
+            Livewire.on('alerta', () => {
+               
+                Swal.fire("No Existen Rutas con esta Fecha");
+            });
+
+
 
 
             Livewire.on('abrirModal', (camion, coordenadas, codigo) => {
@@ -163,7 +193,7 @@
                     console.log('ajaxRutas');
                     var rutaCoordenadas = "{{ URL::route('Rutas.Coordenadas', ':camion') }}";
                     rutaCoordenadas = rutaCoordenadas.replace(':camion', camion.id);
-                   
+
                     $.ajax({
                         type: 'GET',
                         url: rutaCoordenadas,
@@ -172,7 +202,7 @@
                             window.codigo = [];
                             for (const coordenada of response) {
 
-                                console.log(coordenada,'ajax');
+                                console.log(coordenada, 'ajax');
 
                                 window.codigo.push({ // Agrega el objeto al array
                                     'lat': coordenada.latitud,

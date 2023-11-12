@@ -8,6 +8,7 @@ use App\Models\Camiones;
 use App\Models\Estado;
 use App\Models\Mapa;
 use App\Models\Ruta;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class RutasController extends Controller
@@ -17,9 +18,67 @@ class RutasController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+    public  $searchRutas ='luis';
+    public $fecha;
     public function index()
-    {
+    
+    { 
+
+   $fechaActual = Carbon::now();
+   $fechaActual->toDateString(); 
+
+
+
+if($this->fecha == null){
+
+   $camiones = Camiones::where('id_conductor', '!=', null)
+   ->whereHas('mapas', function ($query) {
+       $query->where('estadoLaboral', 'activo');
+   })
+   ->where(function ($query) {
+       $query->where(function ($subquery) {
+           $subquery->where('matricula', 'like', '%' . $this->searchRutas . '%')
+               ->orWhere('marca', 'like', '%' . $this->searchRutas . '%');
+       })
+       ->orWhereHas('conductor', function ($subquery) {
+           $subquery->where('name', 'like', '%' . $this->searchRutas . '%');
+       });
+   })
+   ->with(['estado', 'tipo_camion', 'conductor', 'color', 'rutas' => function ($query) use ($fechaActual) {
+       // Filtrar las rutas para que solo incluya las que tienen la misma fecha que $fechaActual
+       $query->whereDate('created_at', $fechaActual);
+   }])
+   ->get();
+
+
+
+}else{
+
+    $camiones = Camiones::where('id_conductor', '!=', null)
+   ->whereHas('mapas', function ($query) {
+       $query->where('estadoLaboral', 'activo');
+   })
+   ->where(function ($query) {
+       $query->where(function ($subquery) {
+           $subquery->where('matricula', 'like', '%' . $this->searchRutas . '%')
+               ->orWhere('marca', 'like', '%' . $this->searchRutas . '%');
+       })
+       ->orWhereHas('conductor', function ($subquery) {
+           $subquery->where('name', 'like', '%' . $this->searchRutas . '%');
+       });
+   })
+   ->with(['estado', 'tipo_camion', 'conductor', 'color', 'rutas' => function ($query){
+       // Filtrar las rutas para que solo incluya las que tienen la misma fecha que $fechaActual
+       $query->whereDate('created_at', $this->fecha);
+   }])
+   ->get();
+
+}
+//return   $camiones;
         //AIzaSyAtTDv6zE-wO9l81rfsEqnWrtmIzykelug
+
+        
         return view('Rutas.Gestion');
     }
 

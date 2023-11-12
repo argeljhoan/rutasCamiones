@@ -74,8 +74,8 @@ class MapsContenedor extends Component
    
          
          if( $lat == null && $log == null){
-            
-            $this->emit('mapaRefresh',$camiones);
+        
+            $this->emit('alerta');
 
          }else{
 

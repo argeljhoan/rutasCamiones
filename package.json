@@ -26,6 +26,7 @@
         "vue": "^3.2.31"
     },
     "dependencies": {
-        "mapbox-gl": "^2.15.0"
+        "mapbox-gl": "^2.15.0",
+        "sweetalert2": "^11.9.0"
     }
 }

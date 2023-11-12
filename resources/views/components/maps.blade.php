@@ -21,7 +21,7 @@
    
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0/dist/js/bootstrap.bundle.min.js"></script>
      <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
-    
+     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
      <script type="text/javascript" src="https://unpkg.com/default-passive-events"></script> 
     
 

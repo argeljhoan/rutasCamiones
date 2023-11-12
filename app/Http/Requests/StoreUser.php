@@ -30,6 +30,7 @@ class StoreUser extends FormRequest
             'password'=>['required','string','min:8','confirmed'],
             'Telefono' => ['required', 'string', 'regex:/^3\d{9}$/'], 
             'Identificacion' => ['required', 'string', 'regex:/^[0-9]{8,}$/','unique:users'],
+            'archivo' =>['required']
         ];
       
     }

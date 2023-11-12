@@ -141,8 +141,8 @@
                                         <label for="archivo" class="btn btn-success">
                                             <span id="nombre-archivo">Seleccionar</span>
                                             <input type="file" id="archivo" name="archivo" accept="image/*"
-                                                style="display: none;" onchange="actualizarNombreArchivo(this)">
-                                            <input id="foto" type="hidden" name="fotonombre">
+                                                style="display: none;" onchange="actualizarNombreArchivo(this)" >
+                                            <input id="foto" type="hidden" name="fotonombre" required>
                                         </label>
                                     </div>
                                 </div>

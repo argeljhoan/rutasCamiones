@@ -10,6 +10,7 @@ use App\Models\Model_has_role;
 use App\Models\Ruta;
 use App\Models\Tipo;
 use App\Models\User;
+use Carbon\Carbon;
 use Livewire\Component;
 
 class MapaVista extends Component
@@ -20,6 +21,7 @@ class MapaVista extends Component
   public $matricula; 
   public $codigo;
   public $camion;
+  public $fecha;
 
 
   //protected $listeners = ['abrirModal'];
@@ -50,31 +52,101 @@ class MapaVista extends Component
 
     $conductores = $this->conductores;
 
+
+    $fechaActual = Carbon::now();
+    $fechaActual->toDateString(); 
+ 
+ 
+ 
+ if($this->fecha == null){
+ 
     $camiones = Camiones::where('id_conductor', '!=', null)
     ->whereHas('mapas', function ($query) {
-      $query->where('estadoLaboral', 'activo');
-    })->where(function ($query) {
-      $query->where('matricula', 'like', '%' . $this->searchRutas . '%')
-        ->orWhere('marca', 'like', '%' . $this->searchRutas . '%');
-    })->orWhereHas('conductor', function ($query) {
-      $query->where('name', 'like', '%' . $this->searchRutas . '%');
+        $query->where('estadoLaboral', 'activo');
     })
-      ->with('estado', 'tipo_camion', 'conductor', 'color', 'mapas')->paginate(15);
+    ->where(function ($query) {
+        $query->where(function ($subquery) {
+            $subquery->where('matricula', 'like', '%' . $this->searchRutas . '%')
+                ->orWhere('marca', 'like', '%' . $this->searchRutas . '%');
+        })
+        ->orWhereHas('conductor', function ($subquery) {
+            $subquery->where('name', 'like', '%' . $this->searchRutas . '%');
+        });
+    })
+    ->with(['estado', 'tipo_camion', 'conductor', 'color', 'rutas' => function ($query) use ($fechaActual) {
+        // Filtrar las rutas para que solo incluya las que tienen la misma fecha que $fechaActual
+        $query->whereDate('created_at', $fechaActual);
+    }])
+    ->paginate(15);
+ 
+ 
+ }else{
+ 
+     $camiones = Camiones::where('id_conductor', '!=', null)
+    ->whereHas('mapas', function ($query) {
+        $query->where('estadoLaboral', 'activo');
+    })
+    ->where(function ($query) {
+        $query->where(function ($subquery) {
+            $subquery->where('matricula', 'like', '%' . $this->searchRutas . '%')
+                ->orWhere('marca', 'like', '%' . $this->searchRutas . '%');
+        })
+        ->orWhereHas('conductor', function ($subquery) {
+            $subquery->where('name', 'like', '%' . $this->searchRutas . '%');
+        });
+    })
+    ->with(['estado', 'tipo_camion', 'conductor', 'color', 'rutas' => function ($query){
+        // Filtrar las rutas para que solo incluya las que tienen la misma fecha que $fechaActual
+        $query->whereDate('created_at', $this->fecha);
+    }])
+    ->paginate(15);
 
 
+   
+  }
 
-    return view('livewire.mapa-vista', compact('camiones', 'colores', 'estados', 'conductores'));
+   return view('livewire.mapa-vista', compact('camiones', 'colores', 'estados', 'conductores'));
   }
 
 
 public function modal(Camiones $camion){
 
   $this->matricula = $camion->matricula;
-  $this->open = true ;
+  
   $this->codigo = $camion->color->codigo;
-  $coordenadas = Ruta::where('id_camion', $camion->id)->get();
 
+
+if($this->fecha ==null){
+  $fechaActual = Carbon::now();
+  $fechaActual->toDateString(); 
+
+
+  $coordenadas = Ruta::where('id_camion', $camion->id)
+  ->whereDate('created_at', $fechaActual)
+  ->get();
+  $this->open = true ;
+   $this->emit('abrirModal', $camion, $coordenadas,$this->codigo);
+}else {
+
+
+  $coordenadas = Ruta::where('id_camion', $camion->id)
+  ->whereDate('created_at', $this->fecha)
+  ->get();
+
+if(!$coordenadas->isEmpty()){
+  $this->open = true ;
   $this->emit('abrirModal', $camion, $coordenadas,$this->codigo);
+}else{
+
+  $this->emit('alerta');
+
+}
+
+
+}
+
+
+ 
 
 }
 
