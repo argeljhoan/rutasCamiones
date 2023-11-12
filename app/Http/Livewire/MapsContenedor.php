@@ -108,14 +108,11 @@ class MapsContenedor extends Component
         $camiones = Camiones::where('id_conductor', '!=', null)
         ->where('id_estado', $estado->id)
         ->with('conductor','color','mapas')->get();
-        $this->camiones = $camiones;
+     //   $this->camiones = $camiones;
 
         $this->emit('mapaRefresh',$camiones);
 
     }
 
-    public function RenderizarGestion(){
-
-        
-    }
+  
 }

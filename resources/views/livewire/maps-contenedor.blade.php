@@ -1,152 +1,154 @@
 <div>
 
-    
+
 
 
     <div class="py-12">
-     
+
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 ">
             @if ($camiones->isEmpty())
-            <div class="alert alert-info mt-3">
-                No hay Conductores Asignados.
-            </div>
-        @else
-            <div class="dividir">
-
-
-                @foreach ($coordenadas as $coordenada)
-                    @php
-                        $latitud = $coordenada->latitud;
-                        $longitud = $coordenada->longitud;
-                        $codigoCamion = [];
-                    @endphp
-                    <script>
-                        window.latitud = {!! json_encode($latitud) !!};
-                        window.longitud = {!! json_encode($longitud) !!};
-
-                        //  window.divMapas = document.getElementById("mapaactualizar");
-                    </script>
-
-                    <div id="mapaactualizar" class="mapa">
-
-
-                    </div>
-                @endforeach
-                <div class="contenedorConductor">
-                    @foreach ($camiones as $camion)
-                        @php
-
-                            // Inicializa el arreglo fuera del bucle
-
-                            foreach ($camion->mapas as $mapa) {
-                                $codigoCamion[] = [
-                                    'lat' => $mapa->latitud,
-                                    'long' => $mapa->longitud,
-                                    'codigo' => $camion->color->codigo,
-                                ];
-                            }
-
-                        @endphp
-
-                        @if (!empty($codigoCamion))
-                            <script>
-                                window.codigo = [];
-
-
-                                codigo = codigo.concat(@json($codigoCamion));
-                                console.log(codigo)
-                            </script>
-                        @endif
-
-
-                        <a class="info" wire:click="showModal({{ $camion }})">
-                            <div class="divperfil">
-                                <div class="">
-                                    {{-- <img class="perfil" src={{ asset('img/' . $camion->conductor->profile_photo_path) }} alt=""> --}}
-                                    <img class="perfil" src={{ asset('img/' . $camion->conductor->profile_photo_path) }}
-                                        alt="">
-                                </div>
-
-                            </div>
-                            <div class="conductor">
-                                <h3>{{ $camion->conductor->name }}</h3>
-                                <span><strong>Telefono: </strong>{{ $camion->conductor->telefono }} </span>
-                                <span><strong>Ubicacion: </strong>ff </span>
-                            </div>
-                            <div class="estado">
-
-                                @php
-                                    foreach ($camion->mapas as $mapa) {
-                                        if ($mapa->estadoLaboral == 'inactivo') {
-                                            $estadoLaboral = '#EF1B0D';
-                                            $info = $mapa->estadoLaboral;
-                                        } else {
-                                            $estadoLaboral = '#28B463';
-                                            $info = $mapa->estadoLaboral;
-                                        }
-                                    }
-
-                                @endphp
-                              
-                            
-                                <h2>{{ $info }}</h2>
-                                
-                                <div>
-                                    <div class="circulo" style="background-color:{{ $estadoLaboral }}"></div>
-                                </div>
-                             
-                            </div>
-                        </a>
-                    @endforeach
+                <div class="alert alert-info mt-3">
+                    No hay Conductores Asignados.
                 </div>
-
-            </div>
-
-            <x-dialog-modal wire:model="open">
-                <x-slot name="title">
-
-                    <table class="table border-primary table-hover">
-                        <thead class="table-primary">
-                            <tr>
-                                <th>Id</th>
-                                <th>Matrícula</th>
-                                <th>Tipo</th>
-                                <th>Marca</th>
-                                <th>Modelo</th>
-                                <th>Color</th>
-                                <th>Conductor</th>
-
-                            </tr>
-                        </thead>
-                        <tbody>
-
-                            <tr>
-                                <td>{{ $idcamion }}</td>
-                                <td>{{ $matricula }}</td>
-                                <td>{{ $tipo }}</td>
-                                <td>{{ $marca }}</td>
-                                <td>{{ $modelo }}</td>
-                                <td>{{ $color }}</td>
-                                <td>{{ $nombreconductor }}</td>
-                            </tr>
-                        </tbody>
-                    </table>
+            @else
+                <div class="dividir">
 
 
-                </x-slot>
+                    @foreach ($coordenadas as $coordenada)
+                        @php
+                            $latitud = $coordenada->latitud;
+                            $longitud = $coordenada->longitud;
+                            $codigoCamion = [];
+                        @endphp
+                        <script>
+                            window.latitud = {!! json_encode($latitud) !!};
+                            window.longitud = {!! json_encode($longitud) !!};
 
-                <x-slot name="content">
-                    <div id="mapaModal" class="mapaModal">
+                            //  window.divMapas = document.getElementById("mapaactualizar");
+                        </script>
 
+                        <div id="mapaactualizar" class="mapa">
+
+
+                        </div>
+                    @endforeach
+                    <div class="contenedorConductor">
+                        @foreach ($camiones as $camion)
+                            @php
+
+                                // Inicializa el arreglo fuera del bucle
+
+                                foreach ($camion->mapas as $mapa) {
+                                    $codigoCamion[] = [
+                                        'lat' => $mapa->latitud,
+                                        'long' => $mapa->longitud,
+                                        'codigo' => $camion->color->codigo,
+                                    ];
+                                }
+
+                            @endphp
+
+                            @if (!empty($codigoCamion))
+                                <script>
+                                    window.codigo = [];
+
+
+                                    codigo = codigo.concat(@json($codigoCamion));
+                                    console.log(codigo)
+                                </script>
+                            @endif
+
+
+                            <a class="info" wire:click="showModal({{ $camion }}) "style="cursor: pointer;">
+                                <div class="divperfil">
+                                    <div class="">
+                                        {{-- <img class="perfil" src={{ asset('img/' . $camion->conductor->profile_photo_path) }} alt=""> --}}
+                                        <img class="perfil"
+                                            src={{ asset('img/' . $camion->conductor->profile_photo_path) }}
+                                            alt="">
+                                    </div>
+
+                                </div>
+                                <div class="conductor">
+                                    <h3>{{ $camion->conductor->name }}</h3>
+                                    <span><strong>Telefono: </strong>{{ $camion->conductor->telefono }} </span>
+                                    <span><strong>Ubicacion: </strong>ff </span>
+                                </div>
+                                <div class="estado">
+
+                                    @php
+                                        foreach ($camion->mapas as $mapa) {
+                                            if ($mapa->estadoLaboral == 'inactivo') {
+                                                $estadoLaboral = '#EF1B0D';
+                                                $info = $mapa->estadoLaboral;
+                                            } else {
+                                                $estadoLaboral = '#28B463';
+                                                $info = $mapa->estadoLaboral;
+                                            }
+                                        }
+
+                                    @endphp
+
+
+                                    <h2>{{ $info }}</h2>
+
+                                    <div>
+                                        <div class="circulo" style="background-color:{{ $estadoLaboral }}"></div>
+                                    </div>
+
+                                </div>
+                            </a>
+                        @endforeach
                     </div>
-                </x-slot>
 
-                <x-slot name="footer">
+                </div>
+                {{ $open }}
+                <x-dialog-modal wire:model="open" id="miModal">
+                    <x-slot name="title">
 
-                </x-slot>
-            </x-dialog-modal>
+                        <table class="table border-primary table-hover">
+                            <thead class="table-primary">
+                                <tr>
+                                    <th>Id</th>
+                                    <th>Matrícula</th>
+                                    <th>Tipo</th>
+                                    <th>Marca</th>
+                                    <th>Modelo</th>
+                                    <th>Color</th>
+                                    <th>Conductor</th>
+
+                                </tr>
+                            </thead>
+                            <tbody>
+
+                                <tr>
+                                    <td>{{ $idcamion }}</td>
+                                    <td>{{ $matricula }}</td>
+                                    <td>{{ $tipo }}</td>
+                                    <td>{{ $marca }}</td>
+                                    <td>{{ $modelo }}</td>
+                                    <td>{{ $color }}</td>
+                                    <td>{{ $nombreconductor }}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+
+                    </x-slot>
+
+                    <x-slot name="content">
+                        <div id="mapaModal" class="mapaModal">
+
+                        </div>
+                    </x-slot>
+
+                    <x-slot name="footer">
+
+                    </x-slot>
+                </x-dialog-modal>
 
         </div>
+
         <script>
             (g => {
                 var h, a, k, p = "The Google Maps JavaScript API",
@@ -179,24 +181,30 @@
             });
         </script>
         <script src="{{ asset('js/maps.js') }}?v8"></script>
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
         <script>
             window.intervalId = '';
             window.intervalGestion = '';
+            var abrirCerrar = 0;
+
 
             function detenerIntervalo() {
                 clearInterval(intervalId);
-                
+
             }
 
 
 
-
+            // MAPA INDIVIDUAL
 
             window.onload = function() {
                 Livewire.emit('MapaCamiones');
 
                 Livewire.on('abrirModal', (camion, lat, log, codigo) => {
 
+
+
+                    // clearInterval(intervalGestion);
                     window.latitud = lat;
                     window.longitud = log;
                     window.codigo = codigo;
@@ -213,7 +221,9 @@
                     }, 2000);
 
                     window.intervalId = setInterval(function() {
+
                         console.log('ajaxIndividual');
+
                         var rutaCoordenadas = "{{ URL::route('Rutas.Camion', ':camion') }}";
                         rutaCoordenadas = rutaCoordenadas.replace(':camion', camion.id);
                         // var rutaCoordenadas = "{{ URL::route('Rutas.Camion', $camion) }}";
@@ -241,17 +251,19 @@
                             }
                         });
 
-                    }, 60000);
+                    }, 20000);
 
 
 
 
                 });
 
+                /// MAPA GENERAL 
 
                 Livewire.on('mapaRefresh', (camiones) => {
 
-                      clearInterval(intervalGestion);
+                    clearInterval(intervalGestion);
+
                     console.log('entrar')
 
                     let milisegundos1;
@@ -292,10 +304,10 @@
 
                     }, 2000);
 
-                   window.intervalGestion = setInterval(function() {
+                    window.intervalGestion = setInterval(function() {
 
-                        
                         console.log('ajax');
+
                         var rutaCoordenadas = "{{ URL::route('Rutas.Coordenadas') }}";
                         $.ajax({
                             type: 'GET',
@@ -307,6 +319,7 @@
                                 // Inicializa un array vacío
 
                                 for (const camion of response) {
+                                    console.log("Respuesta", response);
                                     for (const coordenadas of camion.mapas) {
                                         estadosNuevos.push(coordenadas.estadoLaboral)
                                         window.codigo.push({ // Agrega el objeto al array
@@ -318,25 +331,27 @@
                                     }
 
                                 }
-
+                                Marcadores()
 
                                 console.log(CamionesAntiguos);
 
                                 for (const index in response) {
 
 
-                                 camionesNuevos = new Date(response[index].updated_at).getTime();
-                                conductoresNuevos = new Date(response[index].conductor.updated_at).getTime();;
+                                    camionesNuevos = new Date(response[index].updated_at)
+                                        .getTime();
+                                    conductoresNuevos = new Date(response[index].conductor
+                                        .updated_at).getTime();;
 
 
-                                    console.log('NuevoCamion',camionesNuevos)
-                                    console.log('CamionAntig',CamionesAntiguos[index])
+                                    console.log('NuevoCamion', camionesNuevos)
+                                    console.log('CamionAntig', CamionesAntiguos[index])
 
                                     if (camionesNuevos > CamionesAntiguos[index]) {
-                                         
+
                                         console.log(camionesNuevos)
                                         console.log(CamionesAntiguos[index])
-                                      //  CamionesAntiguos[index] = camionesNuevos                                  
+                                        //  CamionesAntiguos[index] = camionesNuevos                                  
                                         console.log(response[index].matricula)
                                         Livewire.emit('MapaCamiones');
                                     } else {
@@ -363,21 +378,9 @@
 
                                     }
 
-
-
-
                                 }
 
 
-
-
-
-
-
-                                // console.log(window.codigo);
-                                Marcadores();
-
-                                // Puedes procesar los datos recibidos y actualizar tu página web
                             },
                             error: function(xhr, status, error) {
                                 // Maneja cualquier error que ocurra durante la consulta
@@ -387,13 +390,42 @@
 
 
 
-                    }, 30000);
+                    }, 3600000);
 
 
                 });
 
             }
+
+            document.addEventListener('livewire:load', function() {
+                // Manejador de clic en el documento
+                $(document).on('click', function(e) {
+                    if ($(e.target).closest('a').length === 0) {
+                        clearInterval(intervalId);
+                        console.log('Clic fuera del modal');
+
+                        if (abrirCerrar == 1) {
+                            abrirCerrar = 0;
+                            Livewire.emit('MapaCamiones');
+                        }
+                    } else {
+                        abrirCerrar = 1;
+                        console.log(abrirCerrar);
+                    }
+                });
+
+                // Manejador de clic dentro del modal
+                $('#miModal').on('click', function(e) {
+                    abrirCerrar = 1;
+                    console.log(abrirCerrar);
+                    e.stopPropagation();
+                });
+            });
         </script>
+
+
+
+
         {{-- <script async
             src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAtTDv6zE-wO9l81rfsEqnWrtmIzykelug&callback=initMap&v=weekly">
         </script> --}}
@@ -402,5 +434,5 @@
             ({ key: "AIzaSyAtTDv6zE-wO9l81rfsEqnWrtmIzykelug", v: "beta" });</script>   --}}
 
     </div>
-  @endif
+    @endif
 </div>

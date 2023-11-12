@@ -30,13 +30,12 @@ class RutasController extends Controller
 
         $camiones = Camiones::where('id_conductor', '!=', null)
             ->where('id_estado', $estado->id)
-            ->with('conductor','color','mapas')->get();
- 
+            ->with('conductor', 'color', 'mapas')->get();
+
         $coordenadas = Mapa::where('id_camion', '=', null)->get();
 
-      // return $camiones;
+        // return $camiones;
         return view('Rutas.Mapa', compact('camiones', 'coordenadas'));
-
     }
 
 
@@ -45,24 +44,42 @@ class RutasController extends Controller
 
         $estado =  Estado::where('name', 'funcionando')->first();
         $camiones = Camiones::where('id_conductor', '!=', null)
-        ->where('id_estado', $estado->id)
-        ->with('conductor','color','mapas')->get();
-        return $camiones ;
+            ->where('id_estado', $estado->id)
+            ->with('conductor', 'color', 'mapas')->get();
 
-       // return view('Rutas.Mapa', compact('camiones', 'coordenadas'));
+        foreach ($camiones as $camion) {
+
+
+            foreach ($camion->mapas as $coordenada) {
+              $ruta = Ruta::create([
+                    'latitud' => $coordenada->latitud,
+                    'longitud' => $coordenada->longitud,
+                    'id_camion' => $camion->id
+                    // 'direccion'=>'inactivo',
+                    // Aquí debes proporcionar los datos para las coordenadas, si es necesario.
+                ]);
+            }
+        }
+
+
+        return $camiones;
+
+        // return view('Rutas.Mapa', compact('camiones', 'coordenadas'));
     }
 
-    public function buscarCamion(Camiones $camion){
+    public function buscarCamion(Camiones $camion)
+    {
 
 
 
-        $camiones = Camiones::where('id',$camion->id)
-        ->with('conductor','color','mapas')->first();
-   
+        $camiones = Camiones::where('id', $camion->id)
+            ->with('conductor', 'color', 'mapas')->first();
+
         return  $camiones;
     }
 
-    public function rutasCoordenadas(Camiones $camion){
+    public function rutasCoordenadas(Camiones $camion)
+    {
 
 
         $coordenadas = Ruta::where('id_camion', $camion->id)->with(['camion' => function ($query) {
