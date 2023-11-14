@@ -6,7 +6,7 @@ use App\Http\Controllers\Usuarios\GestionController;
 use App\Http\Controllers\Vehiculos\VehiculoGestionController;
 
 use Illuminate\Support\Facades\Route;
-
+use Illuminate\Foundation\Auth\AuthenticatesUsers;
 
 /*
 |--------------------------------------------------------------------------
@@ -28,9 +28,9 @@ Route::middleware([
     config('jetstream.auth_session'),
     'verified'
 ])->group(function () {
-    Route::get('/dashboard', function () {
-        return view('dashboard');
-    })->name('dashboard');
+    Route::get('/Mapas/Gestion', 
+    [RutasController::class, 'gestionMapa'])
+    ->name('Rutas.Mapa');
 });
 
 

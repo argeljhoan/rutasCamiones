@@ -18,6 +18,8 @@ return new class extends Migration
             $table->string('latitud')->nullable();
             $table->string('longitud')->nullable();
             $table->string('estadoLaboral')->nullable();
+            $table->string('estadoSituacion')->nullable();
+            $table->string('direccion')->nullable();
             $table->unsignedBigInteger('id_camion')->nullable();
             $table->foreign('id_camion')
                 ->references('id')

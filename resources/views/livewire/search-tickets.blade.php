@@ -4,7 +4,7 @@
 
 
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 ">
-
+          @can('Tickets.Registro')
             <div style="display: flex; flex-direction: column; align-items: flex-end;">
                 <a class="btn btn-primary "
                     style="font-size: 14px; width: 170px; display: flex ;flex-direction: row ;gap:10px; align-items: center;"
@@ -20,7 +20,7 @@
 
 
             </div>
-
+           @endcan
             <div class="px-4 py-4">
                 <div class="mb-4">
                     <x-input class="w-full" placeholder="Buscar por Radicado, Matricula, Nombre del Conductor" type="text" wire:model="searchTicket"></x-input>

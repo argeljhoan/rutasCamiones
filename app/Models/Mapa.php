@@ -16,6 +16,8 @@ class Mapa extends Model
         'latitud',
         'longitud',
         'estadoLaboral',
+        'estadoSituacion',
+        'direccion',
         'id_camion',
         
     ];

@@ -11,25 +11,7 @@
 
 
 
-    <script>
-        // var count = 0;
-        // setInterval(function() {
-        //     Livewire.emit('actualizarCoordenadas');
-        //     count++;
-        //     // console.log(count);
-        //     console.log('emitir')
-        // }, 9000);
-
-
-
-        // window.onload = function() {
-        //     Livewire.on('CoordenadasActualizadas', (lat, log) => {
-
-        //         console.log(lat ," ", log);
-
-        //     });
-        // }
-    </script>
+    <script></script>
 
 
 

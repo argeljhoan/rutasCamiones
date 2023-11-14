@@ -13,7 +13,6 @@
             @else
                 <div class="dividir">
 
-
                     @foreach ($coordenadas as $coordenada)
                         @php
                             $latitud = $coordenada->latitud;
@@ -44,6 +43,7 @@
                                         'long' => $mapa->longitud,
                                         'codigo' => $camion->color->codigo,
                                     ];
+                                    $direccion = $mapa->direccion;
                                 }
 
                             @endphp
@@ -58,56 +58,67 @@
                                 </script>
                             @endif
 
+                            @can('Rutas.Camion')
+                                <div class="divInfo">
+                                    <a class="info" wire:click="showModal({{ $camion }}) "style="cursor: pointer;">
+                                        <div class="divperfil">
+                                            <div class="">
+                                                {{-- <img class="perfil" src={{ asset('img/' . $camion->conductor->profile_photo_path) }} alt=""> --}}
+                                                <img class="perfil"
+                                                    src={{ asset('img/' . $camion->conductor->profile_photo_path) }}
+                                                    alt="">
+                                            </div>
 
-                            <a class="info" wire:click="showModal({{ $camion }}) "style="cursor: pointer;">
-                                <div class="divperfil">
-                                    <div class="">
-                                        {{-- <img class="perfil" src={{ asset('img/' . $camion->conductor->profile_photo_path) }} alt=""> --}}
-                                        <img class="perfil"
-                                            src={{ asset('img/' . $camion->conductor->profile_photo_path) }}
-                                            alt="">
-                                    </div>
+                                            <div>
+                                                <strong>{{ $camion->conductor->name }}</strong>
+                                            </div>
 
+                                        </div>
+                                        <div class="conductor">
+
+
+                                            <span><strong>Telefono:</strong> </span>
+                                            <span>{{ $camion->conductor->telefono }}</span>
+                                            <span><strong>Ubicacion: </strong></span>
+                                            <span>{{ $direccion }}</span>
+
+                                        </div>
+                                        <div class="estado">
+
+                                            @php
+                                                foreach ($camion->mapas as $mapa) {
+                                                    if ($mapa->estadoLaboral == 'inactivo') {
+                                                        $estadoLaboral = '#EF1B0D';
+                                                        $info = $mapa->estadoLaboral;
+                                                    } else {
+                                                        $estadoLaboral = '#28B463';
+                                                        $info = $mapa->estadoLaboral;
+                                                    }
+                                                }
+
+                                            @endphp
+
+
+                                            <h2>{{ $info }}</h2>
+
+                                            <div>
+                                                <div class="circulo" style="background-color:{{ $estadoLaboral }}"></div>
+                                            </div>
+
+                                        </div>
+                                    </a>
                                 </div>
-                                <div class="conductor">
-                                    <h3>{{ $camion->conductor->name }}</h3>
-                                    <span><strong>Telefono: </strong>{{ $camion->conductor->telefono }} </span>
-                                    <span><strong>Ubicacion: </strong>ff </span>
-                                </div>
-                                <div class="estado">
-
-                                    @php
-                                        foreach ($camion->mapas as $mapa) {
-                                            if ($mapa->estadoLaboral == 'inactivo') {
-                                                $estadoLaboral = '#EF1B0D';
-                                                $info = $mapa->estadoLaboral;
-                                            } else {
-                                                $estadoLaboral = '#28B463';
-                                                $info = $mapa->estadoLaboral;
-                                            }
-                                        }
-
-                                    @endphp
-
-
-                                    <h2>{{ $info }}</h2>
-
-                                    <div>
-                                        <div class="circulo" style="background-color:{{ $estadoLaboral }}"></div>
-                                    </div>
-
-                                </div>
-                            </a>
+                            @endcan
                         @endforeach
                     </div>
 
                 </div>
-                {{ $open }}
+
                 <x-dialog-modal wire:model="open" id="miModal">
                     <x-slot name="title">
 
-                        <table class="table border-primary table-hover">
-                            <thead class="table-primary">
+                        <table class="table border-success table-hover">
+                            <thead class="table-success">
                                 <tr>
                                     <th>Id</th>
                                     <th>Matrícula</th>
@@ -143,6 +154,17 @@
                     </x-slot>
 
                     <x-slot name="footer">
+
+                        @if ($situacion === 'peligro')
+
+                            <div>
+
+                                <x-button wire:click="cambiarEstado({{$idcamion}})" >Cambiar Situacion</x-button>
+                            </div>
+                            @endif
+
+
+
 
                     </x-slot>
                 </x-dialog-modal>
@@ -186,7 +208,7 @@
             window.intervalId = '';
             window.intervalGestion = '';
             var abrirCerrar = 0;
-
+            window.camionA =  '';
 
             function detenerIntervalo() {
                 clearInterval(intervalId);
@@ -200,10 +222,29 @@
             window.onload = function() {
 
 
-            Livewire.on('alerta', () => {
-               
-                Swal.fire("El Conductor No tiene Coordenadas");
-            });
+                Livewire.on('alerta', () => {
+
+                    Swal.fire("El Conductor No tiene Coordenadas");
+                });
+
+                Livewire.on('peligro', (conductor) => {
+              
+                    Swal.fire({
+                        title: "Emergencia",
+                        text: "El Conductor: " + (conductor.name) + " Se encuentra en peligro",
+                        icon: "error"
+                    });
+                });
+
+                 Livewire.on('cambiarExitoso', (conductor) => {
+              
+                    Swal.fire({
+                        title: "Estado Situacion",
+                        text: "El Conductor: " + (conductor.name) + " Se encuentra fuera de Peligro ",
+                        icon: "success"
+                    });
+                });
+
 
 
                 Livewire.emit('MapaCamiones');
@@ -211,7 +252,8 @@
                 Livewire.on('abrirModal', (camion, lat, log, codigo) => {
 
 
-
+                 camionA = camion
+                console.log(camionA)
                     // clearInterval(intervalGestion);
                     window.latitud = lat;
                     window.longitud = log;
@@ -327,7 +369,7 @@
                                 // Inicializa un array vacío
 
                                 for (const camion of response) {
-                                    console.log("Respuesta", response);
+
                                     for (const coordenadas of camion.mapas) {
                                         estadosNuevos.push(coordenadas.estadoLaboral)
                                         window.codigo.push({ // Agrega el objeto al array
@@ -336,6 +378,16 @@
                                             'long': coordenadas.longitud,
                                             'codigo': camion.color.codigo
                                         });
+
+                                        //condicion de Panico y Emergencia 
+
+                                        console.log(coordenadas.estadoSituacion);
+                                        if ('peligro' == coordenadas.estadoSituacion.trim()) {
+                                            console.log("Entró en la condición", camion
+                                                .conductor);
+                                            Livewire.emit('peligro', camion.conductor);
+
+                                        }
                                     }
 
                                 }
@@ -398,7 +450,7 @@
 
 
 
-                    }, 3600000);
+                    }, 30000);
 
 
                 });
@@ -409,26 +461,33 @@
                 // Manejador de clic en el documento
                 $(document).on('click', function(e) {
                     if ($(e.target).closest('a').length === 0) {
-                        clearInterval(intervalId);
-                        console.log('Clic fuera del modal');
-
-                        if (abrirCerrar == 1) {
+                         if (abrirCerrar == 1) {
                             abrirCerrar = 0;
                             Livewire.emit('MapaCamiones');
                         }
+                        clearInterval(intervalId);
+                        console.log('Clic fuera del modal');
+                       
+                       
+                       
                     } else {
                         abrirCerrar = 1;
                         console.log(abrirCerrar);
                     }
+
+                   
                 });
 
                 // Manejador de clic dentro del modal
-                $('#miModal').on('click', function(e) {
+                
+            });
+
+            $('#miModal').on('click', function(e) {
                     abrirCerrar = 1;
+                 
                     console.log(abrirCerrar);
                     e.stopPropagation();
                 });
-            });
         </script>
 
 

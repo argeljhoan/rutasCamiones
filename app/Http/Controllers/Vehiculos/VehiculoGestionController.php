@@ -108,6 +108,7 @@ class VehiculoGestionController extends Controller
             'latitud'=>null,
             'longitud'=> null,
             'estadoLaboral'=>'inactivo',
+            'estadoSituacion'=> 'normal'
             // Aquí debes proporcionar los datos para las coordenadas, si es necesario.
         ]);
 

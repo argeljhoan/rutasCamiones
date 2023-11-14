@@ -4,13 +4,15 @@
 
   display: flex;
   flex-direction: row;
+  gap: 1rem;
   
 }
 
 .mapa{
-
-border: 5px solid blue;
-width: 70%;
+  border: 3px solid #76ee94; /* Ajusta el grosor del borde según tus preferencias */
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(57, 57, 59, 0.5);
+width: 60%;
 height:800px; 
 
 }
@@ -18,7 +20,9 @@ height:800px;
 
 .mapaModal{
 
-border: 5px solid blue;
+  border: 3px solid #76ee94; /* Ajusta el grosor del borde según tus preferencias */
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(57, 57, 59, 0.5);
 width: 100%;
 height:600px; 
 
@@ -32,30 +36,39 @@ height:600px;
  width: 30%;
 }
 
+
+.divInfo{
+  border: 2px solid #76ee94; /* Ajusta el grosor del borde según tus preferencias */
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(57, 57, 59, 0.5);
+  
+}
 .info{
   display: flex;
   flex-direction: row;
-  border: 1px solid blue;
+  padding: 5px;
   align-items: center;
-  gap:10px;
+  gap:12px;
 
 }
 .conductor{
 
   display:flex;
   flex-direction: column;
+  justify-content: center;
   align-items: flex-start;
   padding: 2px;
-  width:40%;
+  width:45%;
   height: auto;
 }
 
 .divperfil {
+
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: 30%;
+  width: 35%;
   height: auto;
   /* Establece una altura fija para centrar verticalmente */
    /* Puedes ajustar esta altura según tus necesidades */
@@ -73,14 +86,16 @@ height:600px;
 }
 
 .estado{
+  
   padding: 5px;
   display: flex;
   flex-direction: row;
-  gap: 5px;
- 
+  gap: 7px;
+  align-items: flex-start;
   height: auto;
 }
 .circulo{
+ 
 width: 17px;
 height:17px;
 border: 1px solid black;

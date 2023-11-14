@@ -13,7 +13,7 @@
     <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
-    <link rel="stylesheet" href="{{ asset('css/maps.css') }}?v5">
+    <link rel="stylesheet" href="{{ asset('css/maps.css') }}?v6">
 
     <!-- Scripts -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])

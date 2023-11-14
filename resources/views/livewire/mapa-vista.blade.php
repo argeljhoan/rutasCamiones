@@ -55,7 +55,9 @@
                                 <th>Conductor</th>
                                 <th>Latitud</th>
                                 <th>Longitud</th>
+                            @can('Rutas.Coordenadas')
                                 <th>Ver Ruta</th>
+                            @endcan
                             </tr>
                         </thead>
                         <tbody>
@@ -77,9 +79,10 @@
                                         <td>-------------</td>
                                         <td>-------------</td>
                                     @endif
+                                    @can('Rutas.Coordenadas')
                                     <td><button class="btn btn-primary"
                                             wire:click="modal({{ $camion }}) ">Ver</button></td>
-
+                                        @endcan
                                 </tr>
                             @endforeach
                         </tbody>
