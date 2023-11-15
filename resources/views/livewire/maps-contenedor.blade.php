@@ -60,7 +60,7 @@
 
                             @can('Rutas.Camion')
                                 <div class="divInfo">
-                                    <a class="info" wire:click="showModal({{ $camion }}) "style="cursor: pointer;">
+                                    <div class="info" wire:click="showModal({{ $camion }}) "style="cursor: pointer;">
                                         <div class="divperfil">
                                             <div class="">
                                                 {{-- <img class="perfil" src={{ asset('img/' . $camion->conductor->profile_photo_path) }} alt=""> --}}
@@ -106,7 +106,7 @@
                                             </div>
 
                                         </div>
-                                    </a>
+                                    </div>
                                 </div>
                             @endcan
                         @endforeach
@@ -269,6 +269,7 @@
                         initMapGestion()
 
                     }, 2000);
+
 
                     window.intervalId = setInterval(function() {
 
